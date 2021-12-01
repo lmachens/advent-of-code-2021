@@ -1,0 +1,16 @@
+{
+  "name": "advent-of-code-2021",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmachens/advent-of-code-2021.git"
+  },
+  "author": "Leon Machens",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lmachens/advent-of-code-2021/issues"
+  },
+  "homepage": "https://github.com/lmachens/advent-of-code-2021#readme",
+  "dependencies": {
+    "node-fetch": "^3.1.0"
+  }
+}
