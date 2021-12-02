@@ -31,4 +31,30 @@ const position = commands.reduce(
 
 console.log(position, position.depth * position.horizontal);
 
+const positionWithAim = commands.reduce(
+  (pre, { command, length }) => {
+    if (command === "forward") {
+      pre.horizontal += length;
+      pre.depth += pre.aim * length;
+    }
+    if (command === "down") {
+      pre.aim += length;
+    }
+    if (command === "up") {
+      pre.aim -= length;
+    }
+    return pre;
+  },
+  {
+    horizontal: 0,
+    depth: 0,
+    aim: 0,
+  }
+);
+
+console.log(
+  positionWithAim,
+  positionWithAim.depth * positionWithAim.horizontal
+);
+
 export {};
