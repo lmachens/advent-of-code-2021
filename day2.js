@@ -14,11 +14,9 @@ const position = commands.reduce(
   (pre, { command, length }) => {
     if (command === "forward") {
       pre.horizontal += length;
-    }
-    if (command === "down") {
+    } else if (command === "down") {
       pre.depth += length;
-    }
-    if (command === "up") {
+    } else if (command === "up") {
       pre.depth -= length;
     }
     return pre;
@@ -36,11 +34,9 @@ const positionWithAim = commands.reduce(
     if (command === "forward") {
       pre.horizontal += length;
       pre.depth += pre.aim * length;
-    }
-    if (command === "down") {
+    } else if (command === "down") {
       pre.aim += length;
-    }
-    if (command === "up") {
+    } else if (command === "up") {
       pre.aim -= length;
     }
     return pre;
