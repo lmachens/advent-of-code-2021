@@ -41,54 +41,33 @@ console.log(
   `--- Part One ---\nWhat is the power consumption of the submarine?\n${powerConsumption}`
 );
 
-const calcLifeSupportRating = () => {
-  const oxygenGeneratorRatingLines = [...lines];
-  const co2ScrubberRatingLines = [...lines];
+const calcRating = (lines, bitCriteria) => {
+  const linesClone = [...lines];
   for (let i = 0; i < lineWidth; i++) {
-    {
-      const bitCount = calcBitCount(oxygenGeneratorRatingLines);
-      const mostCommonBits = calcMostCommonBits(
-        bitCount,
-        oxygenGeneratorRatingLines.length / 2
-      );
+    const bitCount = calcBitCount(linesClone);
+    const commonBits = bitCriteria(bitCount, linesClone.length / 2);
 
-      if (oxygenGeneratorRatingLines.length > 1) {
-        for (let j = 0; j < oxygenGeneratorRatingLines.length; j++) {
-          if (oxygenGeneratorRatingLines[j][i] !== mostCommonBits[i]) {
-            oxygenGeneratorRatingLines.splice(j, 1);
-            if (oxygenGeneratorRatingLines.length === 1) {
-              break;
-            }
-            j--;
+    if (linesClone.length > 1) {
+      for (let j = 0; j < linesClone.length; j++) {
+        if (linesClone[j][i] !== commonBits[i]) {
+          linesClone.splice(j, 1);
+          if (linesClone.length === 1) {
+            break;
           }
-        }
-      }
-    }
-    {
-      const bitCount = calcBitCount(co2ScrubberRatingLines);
-      const lessCommonBits = calcLessCommonBits(
-        bitCount,
-        co2ScrubberRatingLines.length / 2
-      );
-      if (co2ScrubberRatingLines.length > 1) {
-        for (let j = 0; j < co2ScrubberRatingLines.length; j++) {
-          if (co2ScrubberRatingLines[j][i] !== lessCommonBits[i]) {
-            co2ScrubberRatingLines.splice(j, 1);
-            if (co2ScrubberRatingLines.length === 1) {
-              break;
-            }
-            j--;
-          }
+          j--;
         }
       }
     }
   }
+  const rating = linesClone[0].join("");
+  const ratingDecimal = parseInt(rating, 2);
+  return ratingDecimal;
+};
 
-  const oxygenGeneratorRating = oxygenGeneratorRatingLines[0].join("");
-  const oxygenGeneratorRatingDecimal = parseInt(oxygenGeneratorRating, 2);
-  const co2ScrubberRating = co2ScrubberRatingLines[0].join("");
-  const co2ScrubberRatingDecimal = parseInt(co2ScrubberRating, 2);
-  return oxygenGeneratorRatingDecimal * co2ScrubberRatingDecimal;
+const calcLifeSupportRating = () => {
+  const oxygenRating = calcRating(lines, calcMostCommonBits);
+  const co2Rating = calcRating(lines, calcLessCommonBits);
+  return oxygenRating * co2Rating;
 };
 
 const lifeSupportRating = calcLifeSupportRating();
