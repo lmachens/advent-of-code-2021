@@ -27,7 +27,11 @@ const position = commands.reduce(
   }
 );
 
-console.log(position, position.depth * position.horizontal);
+console.log(
+  `--- Part One ---\nWhat do you get if you multiply your final horizontal position by your final depth?\n${
+    position.depth * position.horizontal
+  }`
+);
 
 const positionWithAim = commands.reduce(
   (pre, { command, length }) => {
@@ -49,6 +53,7 @@ const positionWithAim = commands.reduce(
 );
 
 console.log(
-  positionWithAim,
-  positionWithAim.depth * positionWithAim.horizontal
+  `--- Part Two ---\nWhat do you get if you multiply your final horizontal position by your final depth?\n${
+    positionWithAim.depth * positionWithAim.horizontal
+  }`
 );

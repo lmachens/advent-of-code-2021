@@ -9,7 +9,9 @@ for (let i = 1; i < measurements.length; i++) {
     increases++;
   }
 }
-console.log(increases);
+console.log(
+  `--- Part One ---\nHow many measurements are larger than the previous measurement?\n${increases}`
+);
 
 let slidingWindowIncreases = 0;
 for (let i = 3; i < measurements.length; i++) {
@@ -18,4 +20,6 @@ for (let i = 3; i < measurements.length; i++) {
   }
 }
 
-console.log(slidingWindowIncreases);
+console.log(
+  `--- Part Two ---\nHow many sums are larger than the previous sum?\n${slidingWindowIncreases}`
+);
