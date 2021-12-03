@@ -19,5 +19,3 @@ for (let i = 3; i < measurements.length; i++) {
 }
 
 console.log(slidingWindowIncreases);
-
-export {};

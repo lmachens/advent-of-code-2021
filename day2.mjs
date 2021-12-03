@@ -52,5 +52,3 @@ console.log(
   positionWithAim,
   positionWithAim.depth * positionWithAim.horizontal
 );
-
-export {};
