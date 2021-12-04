@@ -81,7 +81,7 @@ const getLoosingBoard = () => {
           const columnIsComplete = board.every(
             (line) => line[cellWithSameNumberIndex].marked
           );
-          if (rowIsComplete | columnIsComplete) {
+          if (rowIsComplete || columnIsComplete) {
             if (loosingBoards.length === 1) {
               return {
                 board: loosingBoards[0],
