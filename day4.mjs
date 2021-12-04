@@ -48,18 +48,57 @@ const getWinningBoard = () => {
   }
 };
 
-const calculateFinalScore = (board, lastNumber) => {
-  const sumOfUnmarkedMarkers = board.reduce((prev, line) => {
+const calculateFinalScore = (result) => {
+  const sumOfUnmarkedMarkers = result.board.reduce((prev, line) => {
     const unmarkedCells = line.filter((cell) => !cell.marked);
     const sum = unmarkedCells.reduce((prev, cell) => prev + cell.number, 0);
     return prev + sum;
   }, 0);
 
-  return sumOfUnmarkedMarkers * lastNumber;
+  return sumOfUnmarkedMarkers * result.lastNumber;
 };
 
-const { board, lastNumber } = getWinningBoard();
-const finalScore = calculateFinalScore(board, lastNumber);
+const winningBoardResult = getWinningBoard();
+const finalScore = calculateFinalScore(winningBoardResult);
 console.log(
   `--- Part One ---\nWhat will your final score be if you choose that board?\n${finalScore}`
+);
+
+const getLoosingBoard = () => {
+  const loosingBoards = [...boards];
+  for (let i = 0; i < drawnNumbers.length; i++) {
+    const drawnNumber = drawnNumbers[i];
+    for (let j = 0; j < loosingBoards.length; j++) {
+      const board = loosingBoards[j];
+      for (let k = 0; k < board.length; k++) {
+        const line = board[k];
+        const cellWithSameNumberIndex = line.findIndex(
+          (cell) => cell.number === drawnNumber
+        );
+        if (cellWithSameNumberIndex !== -1) {
+          line[cellWithSameNumberIndex].marked = true;
+          const rowIsComplete = line.every((cell) => cell.marked);
+          const columnIsComplete = board.every(
+            (line) => line[cellWithSameNumberIndex].marked
+          );
+          if (rowIsComplete | columnIsComplete) {
+            if (loosingBoards.length === 1) {
+              return {
+                board: loosingBoards[0],
+                lastNumber: drawnNumber,
+              };
+            }
+            loosingBoards.splice(j, 1);
+            j--;
+          }
+        }
+      }
+    }
+  }
+};
+
+const loosingBoardResult = getLoosingBoard();
+const loosingBoardFinalScore = calculateFinalScore(loosingBoardResult);
+console.log(
+  `--- Part Two ---\nOnce it wins, what would its final score be?\n${loosingBoardFinalScore}`
 );
