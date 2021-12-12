@@ -1,13 +1,6 @@
 import { getTask } from "./lib.js";
 
 const task = await getTask(12);
-// const task = `start-A
-// start-b
-// A-c
-// A-b
-// b-d
-// A-end
-// b-end`;
 
 const input = task
   .split("\n")
